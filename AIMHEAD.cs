@@ -13,11 +13,11 @@ public class FFStyleHeadLockPerfect : MonoBehaviour
     public float pullUpThreshold = 0.5f;        // Kéo lên 50% là bật lock
 
     [Tooltip("Tốc độ lia mượt vào đầu (giảm rung/lố)")]
-    public float aimSnapSpeed = 80f;           // 80-120 tùy test
+    public float aimSnapSpeed = 90f;           // 80-120 tùy test
 
     [Tooltip("Offset đầu (trán) tự động + fixed")]
     [Range(0.8f, 1.0f)] public float headPercent = 0.92f;
-    public float fixedHeadY = 0.28f;
+    public float fixedHeadY = 0.30f;
 
     [Header("Crosshair & Debug - Để thấy rõ lock")]
     public GameObject crosshairPrefab;          // Kéo prefab crosshair (vòng đỏ) vào
