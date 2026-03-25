@@ -138,21 +138,21 @@ gap:6px;
 
 .clear{
 margin-top:10px;
-background:#111;
 }
 
 .fab{
 position:fixed;
-bottom:18px;
+bottom:90px;
 right:18px;
-width:45px;
-height:45px;
+width:48px;
+height:48px;
 border-radius:50%;
 background:#000;
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
+z-index:999;
 }
 
 .fab:before{
@@ -168,24 +168,28 @@ z-index:-1;
 
 .menu{
 position:fixed;
-bottom:70px;
+bottom:150px;
 right:18px;
 display:flex;
 flex-direction:column;
-gap:6px;
+gap:10px;
 opacity:0;
 pointer-events:none;
-transition:.2s;
+transform:translateY(10px);
+transition:0.25s;
+z-index:999;
 }
 
 .menu a{
-text-decoration:none;
-text-align:center;
-font-size:12px;
-padding:8px;
-border-radius:8px;
+width:150px;
+padding:10px;
+border-radius:10px;
 background:#000;
 color:white;
+text-align:center;
+font-size:13px;
+text-decoration:none;
+font-family:Montserrat;
 position:relative;
 }
 
@@ -193,15 +197,18 @@ position:relative;
 content:"";
 position:absolute;
 top:-2px;left:-2px;right:-2px;bottom:-2px;
-border-radius:10px;
-background:linear-gradient(45deg,#ff0000,#00ffd5,#7a00ff);
+border-radius:12px;
+background:linear-gradient(45deg,#ff0000,#ff7300,#fffb00,#48ff00,#00ffd5,#002bff,#7a00ff,#ff00c8);
 background-size:400%;
 animation:rgb 6s linear infinite;
 z-index:-1;
 }
 
-.menu.show{opacity:1;pointer-events:auto}
-
+.menu.show{
+opacity:1;
+pointer-events:auto;
+transform:translateY(0);
+}
 </style>
 </head>
 
@@ -215,7 +222,7 @@ z-index:-1;
 <div class="tag">
 <span>🟢 Server Online</span>
 <span>🔐 Bảo mật</span>
-<span>🚀 Hiệu suất</span>
+<span>🚀 Hiệu suất cao</span>
 </div>
 
 <div class="box">
@@ -241,9 +248,9 @@ z-index:-1;
 <div class="fab" onclick="toggle()">💬</div>
 
 <div id="menu" class="menu">
-<a href="#">Zalo</a>
-<a href="#">Telegram</a>
-<a href="#">Facebook</a>
+<a href="https://zalo.me/0378099746" target="_blank">💬 Zalo</a>
+<a href="https://t.me/TunDeveloped" target="_blank">📢 Telegram</a>
+<a href="#">🌐 Facebook</a>
 </div>
 
 <script>
@@ -256,10 +263,10 @@ let history=JSON.parse(localStorage.getItem("his"))||[];
 
 async function load(){
 try{
-CONFIG=await (await fetch(CONFIG_URL)).json();
-KEY_DATA=await (await fetch(KEY_URL)).json();
+CONFIG=await (await fetch(CONFIG_URL+"?t="+Date.now())).json();
+KEY_DATA=await (await fetch(KEY_URL+"?t="+Date.now())).json();
 }catch(e){
-console.log("Lỗi load");
+console.log("Lỗi load JSON");
 }
 }
 
