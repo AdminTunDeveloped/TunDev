@@ -1,0 +1,19 @@
+{
+  "personal_keys": [
+    {
+      "key": "TUNVIP-123",
+      "device": "",
+      "platform": "android"
+    },
+    {
+      "key": "TUNVIP-999",
+      "device": "",
+      "platform": "ios"
+    }
+  ],
+  "community_keys": [
+    "FREE-001",
+    "FREE-999",
+    "TUNFREE"
+  ]
+}
