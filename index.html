@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -156,25 +156,29 @@ text-align:left;
 
 </div>
 </div>
-
 <script>
 
-const CONFIG_URL="https://raw.githubusercontent.com/AdminTunDeveloped/AdminTunDeveloped/main/config.json";
-const KEY_URL="https://raw.githubusercontent.com/AdminTunDeveloped/AdminTunDeveloped/main/key.json";
+const CONFIG_URL="https://raw.githubusercontent.com/10001403/10001403/main/config.json";
+const KEY_URL="https://raw.githubusercontent.com/10001403/10001403/main/key.json";
 
-let CONFIG={},KEY_DATA={};
-let loaded=false;
+let CONFIG={scripts:{}};
+let KEY_DATA={personal_keys:[],community_keys:[]};
 
 let history=JSON.parse(localStorage.getItem("tun_history"))||[];
 
 async function load(){
+
 try{
-CONFIG=await (await fetch(CONFIG_URL+"?t="+Date.now())).json();
-KEY_DATA=await (await fetch(KEY_URL+"?t="+Date.now())).json();
-loaded=true;
+let c=await fetch(CONFIG_URL+"?t="+Date.now());
+if(c.ok) CONFIG=await c.json();
+
+let k=await fetch(KEY_URL+"?t="+Date.now());
+if(k.ok) KEY_DATA=await k.json();
+
 }catch(e){
-document.getElementById("result").innerHTML="<div class='error'>❌ Lỗi load server</div>";
+console.log("Load lỗi nhưng vẫn cho chạy");
 }
+
 }
 
 function showError(msg){
@@ -182,6 +186,11 @@ document.getElementById("result").innerHTML="<div class='error'>"+msg+"</div>";
 }
 
 function showLink(type,link){
+
+if(!link){
+return showError("❌ Không có link (config lỗi)");
+}
+
 document.getElementById("result").innerHTML=`
 <div class="success">${type}
 
@@ -227,13 +236,14 @@ ${i.type} • ${i.time}<br>
 }
 
 function vip(){
-if(!loaded)return showError("⏳ Đợi load dữ liệu...");
 
 let k=document.getElementById("vip-key").value.trim();
 
+if(!k) return showError("❌ Nhập key");
+
 let f=KEY_DATA.personal_keys.find(x=>x.key===k);
 
-if(!f)return showError("❌ Key VIP sai");
+if(!f) return showError("❌ Key VIP sai hoặc chưa load");
 
 let link=CONFIG.scripts[f.platform+"_full"];
 
@@ -242,12 +252,13 @@ showLink("💎 Thành công",link);
 }
 
 function freeKey(){
-if(!loaded)return showError("⏳ Đợi load dữ liệu...");
 
 let k=document.getElementById("free-key").value.trim();
 
+if(!k) return showError("❌ Nhập key");
+
 if(!KEY_DATA.community_keys.includes(k))
-return showError("❌ Key Free sai");
+return showError("❌ Key free sai hoặc chưa load");
 
 let link=CONFIG.scripts.android_free;
 
@@ -259,6 +270,3 @@ load();
 render();
 
 </script>
-
-</body>
-</html>
